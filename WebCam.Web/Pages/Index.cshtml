@@ -1,0 +1,57 @@
+﻿@page
+
+
+@model IndexModel
+@{
+}
+
+<div class="col p-4">
+    <div class="img-thumbnail" id="my_camera"></div>
+    <a href="javascript:void(take_snapshot())" class="btn btn-primary">Take Snapshot</a>
+    <form asp-page="/Index" method="post">
+        <input type="hidden" name="image" id="image" />
+
+        <input type="submit" class="btn btn-success" value="Send To Server"/>
+    </form>
+</div>
+<div class="col-lg-5 m-4">
+    <div class="card">
+        <div class="card-header">Result</div>
+        <div class="card-body">
+            <div class="my_result" id="my_result">
+                Image Will Appared in this place
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section script
+{
+<script asp-src-include="/lib/webcam/**.js"></script>
+<script>
+        Webcam.set({
+        width: 640,
+        height: 480,
+        dest_width: 640,
+        dest_height: 480,
+        image_format: 'png',
+        jpeg_quality: 90,
+        force_flash: false,
+        flip_horiz: true,
+        fps: 60
+    });
+
+        Webcam.attach( '#my_camera' );
+
+        function take_snapshot() {
+            Webcam.snap( function(data_uri) {
+                document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+                var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+
+                document.getElementById('image').value = raw_image_data;
+            } );
+        }
+</script>
+}

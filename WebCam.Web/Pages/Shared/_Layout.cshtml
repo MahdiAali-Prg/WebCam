@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <cache enabled="true" expires-after="@TimeSpan.FromMinutes(1)">
+        <link rel="stylesheet" asp-href-include="/**/**/**.min.css"
+              asp-href-exclude="**-grid.*,**-reboot.*,**-utilities.*" asp-append-version="true" />
+    </cache>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header class="bg-primary text-white p-2 text-center">
+        Web Cam - Web Application
+    </header>
+    <main class="container">
+        @RenderBody()
+    </main>
+    @RenderSection("script", false)
+</body>
+</html>
